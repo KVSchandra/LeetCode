@@ -1,13 +1,18 @@
 class Solution {
 public:
-    int f(int n,vector<int>&dp){
-        if(n<=1) return n;
-        if(dp[n] != -1) return dp[n];
-        return dp[n] = f(n-1,dp) + f(n-2,dp);
+    int f(int n){
+        int prev = 1;
+        int prev2 = 0;
+        int curr;
+        for(int i = 2;i<=n;i++){
+            curr = prev + prev2;
+            prev2 = prev;
+            prev = curr;
+        }
+        return prev;
     }
-
     int fib(int n) {
-        vector<int>dp(n+1,-1);
-        return f(n,dp);
+        if(n<=1) return n;
+        return f(n);
     }
 };

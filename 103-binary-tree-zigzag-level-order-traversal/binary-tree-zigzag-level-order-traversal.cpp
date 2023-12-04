@@ -18,8 +18,8 @@ public:
         q.push(root);
         int count = 0;
         while(!q.empty()){
-            vector<int>output;
             int size = q.size();
+            vector<int>output;
             for(int i = 0;i<size;i++){
                 TreeNode*temp = q.front();
                 q.pop();
@@ -27,8 +27,7 @@ public:
                 if(temp->right) q.push(temp->right);
                 output.push_back(temp->val);
             }
-            
-            if(count%2 == 1) reverse(output.begin(),output.end());
+            if(count & 1) reverse(output.begin(),output.end());
             ans.push_back(output);
             count++;
         }

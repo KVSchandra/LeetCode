@@ -13,7 +13,7 @@ public:
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
         int n = obstacleGrid.size();
         int m = obstacleGrid[0].size();
-        vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
+        vector<vector<int>>dp(n,vector<int>(m,-1));
         return solve(n-1,m-1,obstacleGrid,dp);
     }
 };

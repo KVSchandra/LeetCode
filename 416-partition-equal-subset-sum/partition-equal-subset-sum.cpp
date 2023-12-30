@@ -1,20 +1,20 @@
 class Solution {
 public:
-    bool solve(int ind, int k, vector<int>&nums, vector<vector<int>>&dp){
+    bool solve(int i, int k, int n, vector<int>&nums, vector<vector<int>>&dp) {
+        if(i == n-1) return (k == nums[i]);
         if(k == 0) return true;
-        if(ind == 0) return (k - nums[ind] == 0);
-        if(dp[ind][k] != -1) return dp[ind][k];
-        bool notTake = solve(ind-1, k, nums, dp);
-        bool take = false;
-        if(k - nums[ind] >= 0) take = solve(ind - 1, k-nums[ind], nums, dp);
-        return dp[ind][k] = (take | notTake);
+        if(dp[i][k] != -1) return dp[i][k];
+        int take = false;
+        if(k - nums[i] >= 0) take = solve(i+1, k-nums[i], n, nums, dp);
+        int notTake = solve(i+1, k, n, nums, dp);
+        return dp[i][k] = take | notTake;
     }
 
     bool canPartition(vector<int>& nums) {
-        int n = nums.size();
-        int sum = accumulate(nums.begin(),nums.end(),0);
-        vector<vector<int>>dp(n,vector<int>((sum/2)+1,-1));
+        int sum = accumulate(nums.begin(), nums.end(), 0);
         if(sum & 1) return false;
-        return solve(n-1, sum/2, nums, dp);
+        int n = nums.size();
+        vector<vector<int>>dp(n, vector<int>(sum+1, -1));
+        return solve(0, sum/2, n, nums, dp);
     }
 };

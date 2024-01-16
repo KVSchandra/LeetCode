@@ -2,7 +2,7 @@ class Solution {
 public:
     void bfs(int i, int j, vector<vector<int>>&vis, vector<vector<int>>&grid, vector<int>&dir){
         vis[i][j] = 1;
-        // grid[i][j] = 1;
+        grid[i][j] = 1;
         int n = grid.size();
         int m = grid[0].size();
         queue<pair<int, int>>q;
@@ -16,7 +16,7 @@ public:
                 int dy = y + dir[k+1];
                 if(dx>=0 && dy>=0 && dx<n && dy<m && !vis[dx][dy] && grid[dx][dy] == 0){
                     q.push({dx, dy});
-                    // grid[dx][dy] = 1;
+                    grid[dx][dy] = 1;
                     vis[dx][dy] = 1; 
                 }
             }

@@ -8,11 +8,15 @@ public:
         for(int k = 0; k<4; k++){
             int dx = i + dir[k];
             int dy = j + dir[k+1];
-            if(dx>=0 && dy>=0 && dx<n && dy<m && matrix[i][j] < matrix[dx][dy]){
-                maxi = max(maxi, dfs(dx, dy, matrix, dir, dp));
+            int pick = INT_MIN;
+            if(dx>=0 && dy>=0 && dx<n && dy<m){
+                if(matrix[i][j] < matrix[dx][dy])
+                pick = 1 + dfs(dx, dy, matrix, dir, dp);
+                // int notPick = 0 + dfs(dx, dy, matrix, dir, dp);
+                maxi = max(pick, maxi);
             }
         }
-        return dp[i][j] = 1 + maxi;
+        return dp[i][j] = maxi;
     }
 
     int longestIncreasingPath(vector<vector<int>>& matrix) {
@@ -28,6 +32,6 @@ public:
                 maxi = max(maxi, dfs(i, j, matrix, dir, dp));
             }
         }
-        return maxi;
+        return maxi + 1;
     }
 };

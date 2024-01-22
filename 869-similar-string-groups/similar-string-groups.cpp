@@ -55,12 +55,9 @@ public:
         if(s1.size() != s2.size()) return false;
         int n = s1.size();
         int count = 0;
-        int a = -1; int b = -1;
         for(int i = 0; i<n; i++){
             if(s1[i] != s2[i]) {
                 count++;
-                if(a == -1) a = i;
-                else b = i;
             }
             if(count > 2) return false;
         }

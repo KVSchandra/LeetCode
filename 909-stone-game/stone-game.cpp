@@ -4,7 +4,7 @@ public:
         if(i > j) return 0;
         if(dp[i][j] != -1) return dp[i][j];
         int pick1 = piles[j] + min(solve(i+1, j-1, piles, dp), solve(i, j-2, piles, dp));
-        int pick2 = piles[i] + min(solve(j+1, j-1, piles, dp), solve(i+2, j, piles, dp));
+        int pick2 = piles[i] + min(solve(i+1, j-1, piles, dp), solve(i+2, j, piles, dp));
         return dp[i][j] = max(pick1, pick2);
     }
 

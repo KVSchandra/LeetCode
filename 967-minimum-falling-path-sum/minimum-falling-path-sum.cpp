@@ -1,7 +1,7 @@
 class Solution {
 public:
     int solve(int i, int j, int n, vector<vector<int>>&matrix, vector<vector<int>>&dp){
-        if(i >= n || j >= n || j < 0) return 100001;
+        if(j >= n || j < 0) return 1000000;
         if(i == n-1) return matrix[i][j];
         if(dp[i][j] != 101) return dp[i][j];
         int down = matrix[i][j] + solve(i+1, j, n, matrix, dp);

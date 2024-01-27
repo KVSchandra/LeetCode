@@ -1,21 +1,28 @@
 class Solution {
 public:
-    int solve(int i, int j, int n, vector<vector<int>>&matrix, vector<vector<int>>&dp){
-        if(j >= n || j < 0) return 1000000;
-        if(i == n-1) return matrix[i][j];
-        if(dp[i][j] != 101) return dp[i][j];
-        int down = matrix[i][j] + solve(i+1, j, n, matrix, dp);
-        int diag_left = matrix[i][j] + solve(i+1, j-1, n, matrix, dp);
-        int diag_right = matrix[i][j] + solve(i+1, j+1, n, matrix, dp);
-        return dp[i][j] = min(down, min(diag_left, diag_right));
-    }
-
     int minFallingPathSum(vector<vector<int>>& matrix) {
         int n = matrix.size();
-        int mini = INT_MAX;
-        vector<vector<int>>dp(n, vector<int>(n, 101));
+        int mini = 1000000;
+        vector<vector<int>>dp(n, vector<int>(n, 0));
         for(int j = 0; j<n; j++){
-            mini = min(mini, solve(0, j, n, matrix, dp));
+            dp[0][j] = matrix[0][j];
+        }
+        for(int i = 1; i<n; i++){
+            for(int j = 0; j<n; j++){
+                // if(i == n-1) dp[i][j] = matrix[i][j];
+      
+                    int down = 10000;
+                    int dl = 10000;
+                    int dr = 10000;
+                    down = matrix[i][j] + dp[i-1][j];
+                    if(j > 0) dl = matrix[i][j] + dp[i-1][j-1];
+                    if(j < n-1) dr = matrix[i][j] + dp[i-1][j+1];
+                    dp[i][j] = min(down, min(dl, dr));
+                
+            }
+        }
+        for(int i = 0; i<n; i++){
+            mini = min(mini, dp[n-1][i]);
         }
         return mini;
     }

@@ -15,8 +15,12 @@ public:
         if(root == NULL) return;
         
         if(root->left == NULL && root->right == NULL){
-            if(k == root->val) {temp.push_back(root->val); ans.push_back(temp); temp.pop_back();}
-            else { return;}
+            if(k == root->val) {
+                temp.push_back(root->val); 
+                ans.push_back(temp); 
+                temp.pop_back();
+            }
+            return;
         }
 
         if(root->left){

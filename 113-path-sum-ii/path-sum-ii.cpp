@@ -18,10 +18,17 @@ public:
             if(k == root->val) {temp.push_back(root->val); ans.push_back(temp); temp.pop_back();}
             else { return;}
         }
-        temp.push_back(root->val);
-        solve(root->left, k-root->val, temp, ans);
-        solve(root->right, k-root->val, temp, ans);
-        temp.pop_back();
+
+        if(root->left){
+            temp.push_back(root->val);
+            solve(root->left, k-root->val, temp, ans);
+            temp.pop_back();
+        }
+        if(root->right){
+            temp.push_back(root->val);
+            solve(root->right, k-root->val, temp, ans);
+            temp.pop_back();
+        }
         return;
     }
 

@@ -11,49 +11,40 @@
  */
 class Solution {
 public:
-    unordered_map<int, vector<int>> graph;
-
     int amountOfTime(TreeNode* root, int start) {
-        constructGraph(root);
-
-        queue<int> q;
-        q.push(start);
-
-        unordered_set<int> visited;
-
-        int minutesPassed = -1;
-
-        while (!q.empty()) {
-            ++minutesPassed;
-            for (int levelSize = q.size(); levelSize > 0; --levelSize) {
-                int currentNode = q.front();
-                q.pop();
-                visited.insert(currentNode);
-                for (int adjacentNode : graph[currentNode]) {
-                    if (!visited.count(adjacentNode)) {
-                        q.push(adjacentNode);
+        unordered_map<int, vector<long long>>adj;
+        queue<pair<TreeNode*, long long>> q;
+        q.push({root, -1});
+        while(!q.empty()){
+            TreeNode*node = q.front().first;
+            long long parentNode = q.front().second;
+            q.pop();
+            if(parentNode != -1){
+                adj[parentNode].push_back(node->val);
+                adj[node->val].push_back(parentNode);
+            }
+            if(node->left) q.push({node->left, node->val});
+            if(node->right) q.push({node->right, node->val});
+        }
+        queue<long long>q1;
+        q1.push(start);
+        unordered_map<long long, bool>vis;
+        vis[start] = 1;
+        int count = 0;
+        while(!q1.empty()){
+            long long size = q1.size();
+            count++;
+            while(size--){
+                long long node = q1.front();
+                q1.pop();
+                for(auto val : adj[node]){
+                    if(!vis[val]){
+                        vis[val] = 1;
+                        q1.push(val);
                     }
                 }
             }
         }
-
-        return minutesPassed;
-    }
-
-    void constructGraph(TreeNode* root) {
-        if (!root) return;
-
-        if (root->left) {
-            graph[root->val].push_back(root->left->val);
-            graph[root->left->val].push_back(root->val);
-        }
-
-        if (root->right) {
-            graph[root->val].push_back(root->right->val);
-            graph[root->right->val].push_back(root->val);
-        }
-
-        constructGraph(root->left);
-        constructGraph(root->right);
+        return count - 1;
     }
 };

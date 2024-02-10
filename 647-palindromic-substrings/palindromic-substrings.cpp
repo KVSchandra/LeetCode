@@ -4,7 +4,7 @@ public:
         if(i >= j) return true;
         if(dp[i][j] != -1) return dp[i][j];
         bool pick = false;
-        if(s[i] == s[j]) pick = solve(i+1, j-1, s, dp);
+        if(s[i] == s[j]) pick =  solve(i+1, j-1, s, dp);
         bool notPick = false;
         return dp[i][j] = pick | notPick;
     }

@@ -69,7 +69,7 @@ public:
             j++;
             
         }
-        for(auto val : v) cout<<val<<" ";
+        // for(auto val : v) cout<<val<<" ";
         for(int i = 0; i<v.size(); i++){
             vector<int>ans = KMP(v[i], word);
             if(ans.size() == 0) continue;

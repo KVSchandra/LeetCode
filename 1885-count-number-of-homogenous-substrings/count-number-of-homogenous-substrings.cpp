@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int mod = 1e9+7;
+    long long mod = 1e9+7;
 
     int countHomogenous(string s) {
         int i = 0;
@@ -16,7 +16,7 @@ public:
                 }
                 i++;
             }
-            count += j-i+1;
+            count += mp[s[j]];
             j++;
         }
         return (count)%mod;

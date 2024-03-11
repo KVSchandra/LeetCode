@@ -11,8 +11,8 @@ public:
                 }
             }
         }
-        for(auto val : mp) cout<<val.first<<" "<<val.second<<endl;
-        cout<<ans<<endl;
+        // for(auto val : mp) cout<<val.first<<" "<<val.second<<endl;
+        // cout<<ans<<endl;
         for(auto val : mp){
             if(val.second >= 1){
                 int a = val.second;

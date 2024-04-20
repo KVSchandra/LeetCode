@@ -8,10 +8,10 @@ public:
         c2 = max(c2, j);
         vector<int>dir = {0, -1, 0, 1, 0};
         for(int k = 0; k<4; k++) {
-            int dx = dir[k];
-            int dy = dir[k+1];
-            if(i+dx>=0 && j+dy>=0 && i+dx<land.size() && j+dy<land[0].size() && !vis[i+dx][j+dy] && land[dx+i][dy+j] == 1) {
-                dfs(i+dx, j+dy, r1, c1, r2, c2, vis, land);
+            int dx = i + dir[k];
+            int dy = j + dir[k+1];
+            if(dx>=0 && dy>=0 && dx<land.size() && dy<land[0].size() && !vis[dx][dy] && land[dx][dy] == 1) {
+                dfs(dx, dy, r1, c1, r2, c2, vis, land);
             }
         }
     }

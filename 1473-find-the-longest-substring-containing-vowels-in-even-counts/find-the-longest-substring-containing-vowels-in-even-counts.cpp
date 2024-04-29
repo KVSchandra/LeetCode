@@ -13,9 +13,9 @@ public:
                 if(mp.find(mask) == mp.end()) {
                     mp[mask] = i;
                 }
-                else {
-                    cout<<mask<<" "<<i<<endl;
-                }
+                // else {
+                //     cout<<mask<<" "<<i<<endl;
+                // }
             }
             maxi = max(maxi, i - mp[mask]);
         }

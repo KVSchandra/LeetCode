@@ -15,10 +15,10 @@ public:
             }
             mp[mask]++;
         }
-        for(auto val : mp) {
-            bitset<10>bit(val.first);
-            cout<<bit<<" "<<val.second<<endl;
-        }
+        // for(auto val : mp) {
+        //     bitset<10>bit(val.first);
+        //     cout<<bit<<" "<<val.second<<endl;
+        // }
         return count;
     }
 };

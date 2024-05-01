@@ -1,34 +1,35 @@
+#include <vector>
+#include <set>
+#include <algorithm>
+
+using namespace std;
+
 class Solution {
 public:
-    void solve(int i, int k, int n, vector<int>&output, vector<vector<int>>&ans, vector<int>&v){
-        if(i == v.size()) {
-            if(n == 0 && k == 0){
-                ans.push_back(output);
+    void recur(int idx, set<vector<int>>& ans, vector<int>& temp, vector<bool>& vis, int sum, int k, int n) {
+        if(k == 0) {
+            if(sum == n) {
+                ans.insert(temp);
             }
             return;
         }
-        if(n == 0){
-            if(k == 0) {
-                ans.push_back(output);
+        for(int i = idx; i <= 9; i++) {
+            if(!vis[i]) {
+                temp.push_back(i);
+                vis[i] = 1;
+                recur(i+1, ans, temp, vis, sum + i, k - 1, n);
+                temp.pop_back();
+                vis[i] = 0;
             }
-            return;
         }
-        if(n - v[i] >= 0 && k){
-            output.push_back(v[i]);
-            solve(i+1, k-1, n-v[i], output, ans, v);
-            output.pop_back();
-        }
-        solve(i+1, k, n, output, ans, v);
     }
 
     vector<vector<int>> combinationSum3(int k, int n) {
-        vector<vector<int>>ans;
-        vector<int>output;
-        vector<int>v;
-        for(int i = 1; i<=9; i++){
-            v.push_back(i);
-        }
-        solve(0, k, n, output, ans, v);
-        return ans;
+        set<vector<int>> ans;
+        vector<int> temp;
+        vector<bool> vis(10, 0);
+        recur(1, ans, temp, vis, 0, k, n);
+        vector<vector<int>>res(ans.begin(), ans.end());
+        return res;
     }
 };

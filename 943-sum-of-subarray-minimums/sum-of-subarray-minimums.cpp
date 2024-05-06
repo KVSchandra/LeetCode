@@ -1,28 +1,37 @@
 class Solution {
 public:
-long long sumSubarrayMins(std::vector<int>& arr) {
-    int n = arr.size();
-    int MOD = 1e9+7;
-    stack<int> s1, s2;
-    vector<long long> left(n), right(n, n);
-    for (int i = 0; i < n; ++i) {
-        while (!s1.empty() && arr[s1.top()] > arr[i]) {
-            s1.pop();
+    int mod = 1e9+7;
+    int sumSubarrayMins(vector<int>& arr) {
+        stack<int>st;
+        int n = arr.size();
+        vector<int>ple(n), nle(n);
+        for(int i = 0; i<n; i++) {
+            while(!st.empty() && arr[i] <= arr[st.top()]) {
+                st.pop();
+            }
+            if(st.empty()) ple[i] = i;
+            else ple[i] = i-st.top()-1;
+            st.push(i);
         }
-        left[i] = s1.empty() ? i + 1 : i - s1.top();
-        s1.push(i);
-    }
-    for (int i = n - 1; i >= 0; --i) {
-        while (!s2.empty() && arr[s2.top()] >= arr[i]) {
-            s2.pop();
+        while(!st.empty()) st.pop();
+        for(int i = n-1; i>=0; i--) {
+            while(!st.empty() && arr[i] < arr[st.top()]) {
+                st.pop();
+            }
+            if(st.empty()) nle[i] = n-i-1;
+            else nle[i] = st.top()-i-1;
+            st.push(i);
         }
-        right[i] = s2.empty() ? n - i : s2.top() - i;
-        s2.push(i);
+        // for(auto val : ple) cout << val << " ";
+        // cout << endl;
+        // for(auto val : nle) cout << val << " ";
+        // cout << endl;
+        long long ans = 0;
+        for(int i = 0; i<n; i++) {
+            long long prod = ((ple[i]+1)*(nle[i]+1))%mod;
+            prod = (prod*arr[i])%mod;
+            ans = (ans + prod)%mod;
+        }
+        return ans;
     }
-    long long result = 0;
-    for (int i = 0; i < n; ++i) {
-        result = (result + arr[i] * left[i] * right[i]) % MOD;
-    }
-    return (result);
-}
 };

@@ -22,10 +22,10 @@ public:
             st.push(i);
         }
         long long maxi = INT_MIN;
-        for(auto val : ple) cout << val << " ";
-        cout << endl;
-        for(auto val : nle) cout << val << " ";
-        cout << endl;
+        // for(auto val : ple) cout << val << " ";
+        // cout << endl;
+        // for(auto val : nle) cout << val << " ";
+        // cout << endl;
         for(int i = 0; i<n; i++) {
             long long left = (ple[i]+1)*heights[i];
             long long right = (nle[i]+1)*heights[i];

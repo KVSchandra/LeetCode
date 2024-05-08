@@ -10,7 +10,7 @@ public:
             }
         }
         sum += values[i];
-        if(sum%k == 0) count++;
+        if(sum%k == 0) {count++; return 0;}
         return sum;
     }
 

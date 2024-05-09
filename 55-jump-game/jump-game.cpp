@@ -19,7 +19,7 @@ bool solver(int index,vector<int>&nums,vector<int>&dp)
     {
         if(index+i<nums.size())
         {
-            if(solver(index+i,nums,dp)) return dp[index+i] = true;
+            if(solver(index+i,nums,dp)) return dp[i] = true;
         }
     }
     return dp[index] = false;

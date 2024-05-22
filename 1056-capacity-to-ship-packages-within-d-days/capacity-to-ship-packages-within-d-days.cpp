@@ -1,25 +1,28 @@
 class Solution {
 public:
-    int func(int mid, vector<int>&weights) {
-        int days = 1;
-        int wt = 0;
-        for(int i = 0; i<weights.size(); i++) {
-            if(wt + weights[i] > mid) {
-                days++;
-                wt = weights[i];
+    long long solve(int mid, vector<int>&weights) {
+        int ans = 1;
+        int count = 0;
+        for(auto val : weights) {
+            if(count + val > mid) {
+                count = 0;
+                ans++;
+                if(val > mid) return 1e9;
+                count += val;
             }
-            else wt += weights[i];
+            else count += val;
         }
-        return days;
+        return ans;
     }
 
-    int shipWithinDays(vector<int>& weights, int days) { 
-        int low = *max_element(weights.begin(), weights.end());
-        int high = accumulate(weights.begin(), weights.end(), 0);
+    int shipWithinDays(vector<int>& weights, int days) {
+        long long low = *min_element(weights.begin(), weights.end());
+        long long high = accumulate(weights.begin(), weights.end(), 0ll);
         while(low <= high) {
             int mid = low + (high - low)/2;
-            if(func(mid, weights) <= days) high = mid - 1;
-            else low = mid + 1;
+            long long a = solve(mid, weights);
+            if(a <= days) high = mid-1;
+            else low = mid+1;
         }
         return low;
     }

@@ -1,30 +1,29 @@
 class Solution {
 public:
-    bool check(int mid, int m, int k, vector<int>&bloomDay) {
-        int count = 0;
-        int bouquet = 0;
-        for(int i = 0; i<bloomDay.size(); i++) {
+    long long solve(long long mid, long long k, vector<int>&bloomDay) {
+        long long ans = 0;
+        long long count = 0;
+        for(long long i = 0; i<bloomDay.size(); i++) {
             if(bloomDay[i] <= mid) {
                 count++;
             }
             else {
-                bouquet += count/k;
+                ans += count/k;
                 count = 0;
             }
         }
-        bouquet += count/k;
-        if(bouquet >= m) return true;
-        return false;
+        ans += count/k;
+        return ans;
     }
 
     int minDays(vector<int>& bloomDay, int m, int k) {
-        long long n = bloomDay.size();
-        if((long long)m*k > n) return -1;
-        int low = *min_element(bloomDay.begin(), bloomDay.end());
-        int high = *max_element(bloomDay.begin(), bloomDay.end());
+        if(bloomDay.size() < (long long)m*k) return -1;
+        long long low = *min_element(bloomDay.begin(), bloomDay.end());
+        long long high = *max_element(bloomDay.begin(), bloomDay.end());
         while(low <= high) {
-            int mid = low + (high - low)/2;
-            if(check(mid, m, k, bloomDay)) high = mid - 1;
+            long long mid = low + (high - low)/2;
+            long long a = solve((long long)mid, k, bloomDay);
+            if(a >= m) high = mid - 1;
             else low = mid + 1;
         }
         return low;

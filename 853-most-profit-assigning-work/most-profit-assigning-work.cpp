@@ -11,7 +11,6 @@ public:
             else {
                 mp[difficulty[i]] = profit[i];
             }
-            
         }
         sort(difficulty.begin(), difficulty.end());
         vector<int>prefix(difficulty.size(), 0);

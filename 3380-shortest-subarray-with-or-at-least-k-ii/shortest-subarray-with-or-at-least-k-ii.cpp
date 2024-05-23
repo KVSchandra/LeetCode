@@ -17,7 +17,7 @@ public:
             }
             else {
                 while(x >= k && i <= j) {
-                    cout << x << " ";
+                    // cout << x << " ";
                     mini = min(mini, j-i+1);
                     for(int b = 0; b<32; b++) {
                         if(nums[i] & (1 << b)) {

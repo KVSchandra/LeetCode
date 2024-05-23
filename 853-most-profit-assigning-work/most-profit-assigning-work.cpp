@@ -3,7 +3,7 @@ public:
     int maxProfitAssignment(vector<int>& difficulty, vector<int>& profit, vector<int>& worker) {
         unordered_map<int, int>mp;
         for(int i = 0; i<profit.size(); i++) {
-            if(mp.count(difficulty[i])) {
+            if(mp[difficulty[i]]) {
                 if(mp[difficulty[i]] < profit[i]) {
                     mp[difficulty[i]] = profit[i];
                 }

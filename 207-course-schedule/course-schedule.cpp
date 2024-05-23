@@ -25,8 +25,8 @@ public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         vector<int>adj[numCourses], inDegree(numCourses);
         for(auto val : prerequisites) {
-            adj[val[0]].push_back(val[1]);
-            inDegree[val[1]]++;
+            adj[val[1]].push_back(val[0]);
+            inDegree[val[0]]++;
         }
         vector<int>topo = topoSort(inDegree, adj);
         return (topo.size() == numCourses);

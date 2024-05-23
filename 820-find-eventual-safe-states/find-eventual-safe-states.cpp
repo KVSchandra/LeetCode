@@ -1,34 +1,40 @@
 class Solution {
 public:
-    bool dfs(int i, vector<int>&vis, vector<int>&pathVis, vector<vector<int>>&graph) {
-        vis[i] = 1;
-        pathVis[i] = 1;
-        for(auto val : graph[i]){
-            if(!vis[val]){
-                if(dfs(val, vis, pathVis, graph)) return true;
-            }
-            else if(pathVis[val]){
-                return true;
+    vector<int>topoSort(vector<int>&inDegree, vector<int>adj[]) {
+        vector<int>topo;
+        queue<int>q;
+        for(int i = 0; i<inDegree.size(); i++) {
+            if(inDegree[i] == 0) {
+                q.push(i);
             }
         }
-        pathVis[i] = 0;
-        return false;
+        while(!q.empty()) {
+            int node = q.front();
+            q.pop();
+            topo.push_back(node);
+            for(auto val : adj[node]) {
+                inDegree[val]--;
+                if(inDegree[val] == 0) {
+                    q.push(val);
+                }
+            } 
+        }
+        return topo;
     }
 
-
+    //REVERSE THE GRAPH, because we need 0 outdegree instead of 0 inDegree
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
         int n = graph.size();
-        vector<int>vis(n, 0);
-        vector<int>pathVis(n, 0);
-        for(int i = 0; i<n; i++){
-            if(!vis[i]){
-                dfs(i, vis, pathVis, graph);
+        vector<int>adj[n];
+        vector<int>inDegree(n);
+        for(int i = 0; i<n; i++) {
+            for(auto val : graph[i]) {
+                adj[val].push_back(i);
+                inDegree[i]++;
             }
         }
-        vector<int>ans;
-        for(int i = 0;i<n; i++){
-            if(!pathVis[i]) ans.push_back(i);   
-        }
-        return ans;
+        vector<int>topo = topoSort(inDegree, adj);
+        sort(topo.begin(), topo.end());
+        return topo;
     }
 };

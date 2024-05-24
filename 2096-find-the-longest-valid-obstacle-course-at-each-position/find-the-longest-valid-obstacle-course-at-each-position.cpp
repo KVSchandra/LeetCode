@@ -31,25 +31,24 @@ public:
     }
 
     vector<int> longestObstacleCourseAtEachPosition(vector<int>& obstacles) {
-        vector<int> ans;
-        set<int> st;
-        for (auto val : obstacles) st.insert(val);
+        vector<int>ans;
+        set<int>st;
+        for(auto val : obstacles) st.insert(val);
         vector<int>v;
-        unordered_map<int, int> mp;
-        for (auto val : st) {
+        unordered_map<int, int>mp;
+        for(auto val : st) {
             v.push_back(val);
-            mp[val] = v.size() - 1;
+            mp[val] = v.size()-1;
         }
         vector<int>vis(v.size(), 0);
-        vector<int>seg(4 * v.size(), INT_MIN);
+        vector<int>seg(v.size()*4 + 1);
         int n = v.size();
-        buildSeg(seg, vis, 0, 0, n - 1);
+        buildSeg(seg, vis, 0, 0, n-1);
         for(auto val : obstacles) {
-            int idx = mp[val];
-            int longest = querySeg(seg, 0, 0, n - 1, 0, idx) + 1;
-            vis[idx] = max(vis[idx], longest);
-            updateSeg(seg, vis, 0, 0, n - 1, idx, vis[idx]);
-            ans.push_back(longest);
+            int a = querySeg(seg, 0, 0, n-1, 0, mp[val]);
+            vis[mp[val]] = a+1;
+            ans.push_back(vis[mp[val]]);
+            updateSeg(seg, vis, 0, 0, n-1, mp[val], vis[mp[val]]);
         }
         return ans;
     }

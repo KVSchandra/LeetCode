@@ -1,10 +1,10 @@
 class Solution {
 public:
-    bool isValid(int node, set<int>&st) {
+    bool isValid(int node, unordered_set<int>&st) {
         return (st.find(node) == st.end());
     }
 
-    int dfs(int i, vector<int>&vis, set<int>&st, vector<int>adj[]) {
+    int dfs(int i, vector<int>&vis, unordered_set<int>&st, vector<int>adj[]) {
         int pick = 0;
         vis[i] = 1;
         for(auto val : adj[i]) {
@@ -17,7 +17,7 @@ public:
 
     int reachableNodes(int n, vector<vector<int>>& edges, vector<int>& restricted) {
         vector<int>adj[n];
-        set<int>st;
+        unordered_set<int>st;
         for(auto val : restricted) st.insert(val);
         for(auto val : edges) {
             adj[val[0]].push_back(val[1]);

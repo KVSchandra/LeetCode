@@ -15,9 +15,9 @@ public:
                 j++;
             }
         }
-        for(auto val : meetings) {
-            cout << val[0] << " " << val[1] << endl;
-        }
+        // for(auto val : meetings) {
+        //     cout << val[0] << " " << val[1] << endl;
+        // }
         count += abs(meetings[0][0] - 1);
         count += abs(meetings[i][1] - days);
         return count;

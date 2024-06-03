@@ -45,9 +45,10 @@ public:
             while(size--) {
                 TreeNode* node = q.front();
                 q.pop();
-                if(node && node->left && !vis[node->left]) {q.push(node->left); vis[node->left] = 1;}
-                if(node && node->right && !vis[node->right]) {q.push(node->right); vis[node->right] = 1;}
-                if(node && !vis[parent_track[node]] && parent_track.find(node) != parent_track.end()) {q.push(parent_track[node]); vis[parent_track[node]] = 1;}
+                vis[node] = 1;
+                if(node && node->left && !vis[node->left]) q.push(node->left); 
+                if(node && node->right && !vis[node->right]) q.push(node->right); 
+                if(node && !vis[parent_track[node]] && parent_track.find(node) != parent_track.end()) q.push(parent_track[node]); 
             }
         }
         while(count == k && !q.empty()) {

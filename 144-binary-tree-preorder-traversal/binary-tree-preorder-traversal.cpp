@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    // MORRIS TRAVERSAL
+    // MORRIS TRAVERSAL - preorder
     // Threaded Binary Tree
     // TC : Amortised(N) + O(N) => O(N) 
     // SC : O(1)

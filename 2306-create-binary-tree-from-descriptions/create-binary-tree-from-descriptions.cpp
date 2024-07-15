@@ -27,7 +27,7 @@ public:
                 break;
             }
         }
-        if(x == -1) return nullptr;
+        if(x == -1) return NULL;
         TreeNode* root = new TreeNode(x);
         dfs(x, root, adj);
         return root;

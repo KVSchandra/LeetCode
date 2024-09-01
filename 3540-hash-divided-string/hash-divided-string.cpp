@@ -5,9 +5,8 @@ public:
         int count = 0;
         int sum = 0;
         for(int i = 0; i < s.size(); i++) {
-            if(count && count % k == (0)) {
-                sum = sum % 26;
-                ans.push_back('a' + sum);
+            if(count && count % k == 0) {
+                ans.push_back('a' + (sum % 26));
                 sum = 0;
             }
             sum += s[i] - 'a';

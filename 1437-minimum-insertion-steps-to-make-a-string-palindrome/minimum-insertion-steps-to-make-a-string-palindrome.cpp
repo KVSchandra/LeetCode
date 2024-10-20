@@ -1,18 +1,23 @@
+#define ll long long
 class Solution {
 public:
-    int solve(int i, int j, string &s1, string &s2, vector<vector<int>>&dp){
-        if(i < 0 || j < 0) return 0;
-        if(dp[i][j] != -1) return dp[i][j];
-        if(s1[i] == s2[j]) return dp[i][j] = 1 + solve(i-1, j-1, s1, s2, dp);
-        return dp[i][j] = 0 + max(solve(i-1, j, s1, s2, dp), solve(i, j-1, s1, s2, dp));
-    }
-
+    // NEED TO FIND THE LONGEST PALINDROME FROM THE GIVEN STRING
     int minInsertions(string s) {
+        ll n = s.size();
         string s1 = s;
         reverse(s.begin(), s.end());
         string s2 = s;
-        int n = s.size();
-        vector<vector<int>>dp(n, vector<int>(n, -1));
-        return n - solve(n-1, n-1, s1, s2, dp);
+        vector<vector<ll>> dp(n+1, vector<ll>(n+1));
+        for(ll i = n - 1; i >= 0; i--) {
+            for(ll j = n - 1; j >= 0; j--) {
+                if(s1[i] == s2[j]) {
+                    dp[i][j] = max(dp[i][j], 1 + dp[i+1][j+1]);
+                }
+                else {
+                    dp[i][j] = max(dp[i+1][j], dp[i][j+1]);
+                }
+            }
+        }
+        return (n - dp[0][0]);
     }
 };
